@@ -12,7 +12,7 @@ from sqlalchemy.orm import relationship
 class User(SQLAlchemyBaseUserTable[int], Base):
     __tablename__ = 'User'
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(length=30))
 
     categories = relationship('Category', back_populates='user', cascade="all, delete", passive_deletes=True)

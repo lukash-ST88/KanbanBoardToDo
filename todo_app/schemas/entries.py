@@ -1,28 +1,28 @@
 from datetime import datetime
 
 from pydantic import BaseModel, constr, ValidationError, validator
-from typing import List
-from todo_app.auth.schemas import UserRead
-import re
-from pydantic.color import Color as cl
+from pydantic.fields import Field
+from pydantic.color import Color as color
 
 
 # TODO: validate date_created must be less then date_expiration
 
 class ColorBase(BaseModel):
-    id: int
-    code: cl
+    code: color
 
     class Config:
         orm_mode = True
 
     @validator('code')
-    def valid_color_code(cls, code: cl):
+    def valid_color_code(cls, code: color):
         if code:
             print('pydentic verified color')
             return code.as_hex()
         else:
             raise ValueError('value must be filled in by color format')
+
+
+""""""
 
 
 class CategoryBase(BaseModel):
@@ -39,7 +39,6 @@ class CategoryRead(CategoryBase):
 
 
 class CategoryCreate(CategoryBase):
-    id: int
     user_id: int
 
 
@@ -47,35 +46,56 @@ class CategoryUpdate(CategoryBase):
     pass
 
 
+""""""
+
+
 class ThemeBase(BaseModel):
-    id: int
     name: str
     slug: str
     cat_id: int
     color_id: int
 
-    # cat: CategoryBase
-    # color: ColorBase
-
     class Config:
         orm_mode = True
+
+
+class ThemeCreate(ThemeBase):
+    pass
+
+
+class ThemeRead(ThemeBase):
+    pass
+
+
+class ThemeUpdate(ThemeBase):
+    pass
+
+
+""""""
 
 
 class TaskBase(BaseModel):
-    id: int
     title: str
-    slug: str
-    description: str
-    date_created_timezone: datetime
-    date_created: datetime = datetime.now()
-    date_updated: datetime | None
-    date_expiration: datetime
+    description: str | None
     completed: bool = False
     theme_id: int
-    user_id: int
-
-    # theme: ThemeBase
-    # user: UserRead
 
     class Config:
         orm_mode = True
+
+
+class TaskRead(TaskBase):
+    creation_date: datetime
+    update_date: datetime | None
+    expiration_date: datetime
+
+
+class TaskCreate(TaskBase):
+    slug: str
+    expiration_date: datetime = Field(...)
+    user_id: int  # remove in the future
+
+
+class TaskUpdate(TaskBase):
+    slug: str
+    update_date: datetime = datetime.now()

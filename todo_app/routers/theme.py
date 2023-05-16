@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 
 from sqlalchemy import select, insert, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from todo_app.schemas.entries import ThemeBase
+from todo_app.schemas.entries import ThemeCreate, ThemeUpdate
 from todo_app.db.database import get_async_session
 from todo_app.models.entries import Theme
 
@@ -15,7 +15,7 @@ router = APIRouter(
 
 
 @router.post('/create')
-async def add_new_theme(new_theme: ThemeBase, session: AsyncSession = Depends(get_async_session)):
+async def add_new_theme(new_theme: ThemeCreate, session: AsyncSession = Depends(get_async_session)):
     statement = insert(Theme).values(**new_theme.dict())
     await session.execute(statement)
     await session.commit()
@@ -35,7 +35,7 @@ async def get_category(theme_slug: str, session: AsyncSession = Depends(get_asyn
 
 
 @router.put('/{theme_slug}/update')
-async def update_theme(theme_slug: str, update_theme: ThemeBase,
+async def update_theme(theme_slug: str, update_theme: ThemeUpdate,
                        session: AsyncSession = Depends(get_async_session)):
     statement = update(Theme).where(Theme.slug == theme_slug).values(**update_theme.dict())
     await session.execute(statement)
