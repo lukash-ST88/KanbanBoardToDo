@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="name" placeholder="name"/>
+    <input type="text" name="slug" placeholder="slug"/>
+    <input type="number" name="color_id" placeholder="color_id"/>
+    <input type="number" name="user_id" placeholder="user_id"/>
+    <input type="submit">
+</form>
+
+{{ cat }}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="name" value="{{update_cat.name}}"/>
+    <input type="text" name="slug" value="{{update_cat.slug}}"/>
+    <input type="number" name="color_id" value="{{update_cat.color_id}}" value="1"/>
+    <input type="submit">
+</form>
+
+{{ cat }}
+{% endblock %}

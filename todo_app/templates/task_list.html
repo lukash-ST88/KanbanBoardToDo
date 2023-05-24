@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for task in todo_zone_tasks %}
+<p> {{task}} </p>
+{% endfor %}
+<hr>
+{% for task in middle_zone_tasks %}
+<p> {{task}} </p>
+{% endfor %}
+<hr>
+{% for task in done_zone_tasks %}
+<p> {{task}} </p>
+{% endfor %}
+{% endblock %}

@@ -9,17 +9,17 @@ from todo_app.db.database import get_async_session
 from todo_app.models.entries import Theme
 
 router = APIRouter(
-    prefix='/theme',
+    prefix='/API/theme',
     tags=['Theme']
 )
 
 
 @router.post('/create')
-async def add_new_theme(new_theme: ThemeCreate, session: AsyncSession = Depends(get_async_session)):
-    statement = insert(Theme).values(**new_theme.dict())
-    await session.execute(statement)
+async def add_new_theme(new_theme: ThemeCreate = Depends(ThemeCreate.as_form), session: AsyncSession = Depends(get_async_session)):
+    statement = insert(Theme).values(**new_theme.dict()).returning(Theme)
+    result = await session.execute(statement)
     await session.commit()
-    return {'status': 'success'}
+    return result.scalars().first()
 
 
 @router.get('/')

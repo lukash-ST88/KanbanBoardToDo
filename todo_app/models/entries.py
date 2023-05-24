@@ -30,6 +30,9 @@ class Category(Base):
     user = relationship('User', back_populates='categories')
     themes = relationship('Theme', back_populates='cat', cascade="all, delete", passive_deletes=True)
 
+    def __str__(self):
+        return self.name
+
 #
 #
 class Theme(Base):
@@ -46,6 +49,8 @@ class Theme(Base):
     color = relationship('Color', back_populates='themes')
     tasks = relationship('Task', back_populates='theme', cascade="all, delete", passive_deletes=True)
 
+    def __str__(self):
+        return self.name
 #
 class Task(Base):
     __tablename__ = 'Task'
@@ -64,3 +69,6 @@ class Task(Base):
 
     theme = relationship('Theme', back_populates='tasks')
     user: Mapped['User'] = relationship(back_populates='tasks')
+
+    def __str__(self):
+        return self.title

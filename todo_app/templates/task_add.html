@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="title" placeholder="title"/>
+    <input type="text" name="slug" placeholder="slug"/>
+    <input type="text" name="description" placeholder="description"/>
+    <input type="checkbox" name="completed" placeholder="completed"/>
+    <input type="datetime-local" name="expiration_date" placeholder="expiration_date"/>
+    <input type="number" name="theme_id" placeholder="theme_id"/>
+    <input type="number" name="user_id" placeholder="user_id"/>
+    <input type="submit">
+</form>
+
+{{ task }}
+{% endblock %}
