@@ -29,18 +29,18 @@ async def get_all_themes(session: AsyncSession = Depends(get_async_session)):
 
 
 @router.get('/theme_slug}')
-async def get_category(theme_slug: str, session: AsyncSession = Depends(get_async_session)):
+async def get_theme(theme_slug: str, session: AsyncSession = Depends(get_async_session)):
     result = await session.scalars(select(Theme).where(Theme.slug == theme_slug))
     return result.first()
 
 
 @router.put('/{theme_slug}/update')
-async def update_theme(theme_slug: str, update_theme: ThemeUpdate,
+async def update_theme(theme_slug: str, update_theme: ThemeUpdate = Depends(ThemeUpdate.as_form),
                        session: AsyncSession = Depends(get_async_session)):
-    statement = update(Theme).where(Theme.slug == theme_slug).values(**update_theme.dict())
-    await session.execute(statement)
+    statement = update(Theme).where(Theme.slug == theme_slug).values(**update_theme.dict()).returning(Theme)
+    result = await session.execute(statement)
     await session.commit()
-    return {'status': 'success'}
+    return result.scalars().first()
 
 
 @router.delete('/{theme_slug}/delete')

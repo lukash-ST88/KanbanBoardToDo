@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 from todo_app.logic.zone_distribution import get_distributed_entries
 from todo_app.routers.category import get_all_categories, add_new_category, update_category, get_category, \
     delete_category
-from todo_app.routers.task import get_all_tasks, get_tasks_by_cat, get_tasks_by_theme, add_new_task
-from todo_app.routers.theme import get_all_themes, add_new_theme
-from todo_app.routers.color import get_all_colors, add_new_color
+from todo_app.routers.task import get_all_tasks, get_tasks_by_cat, get_tasks_by_theme, add_new_task, update_task, \
+    get_task, delete_task
+from todo_app.routers.theme import get_all_themes, add_new_theme, update_theme, get_theme, delete_theme
+from todo_app.routers.color import get_all_colors, add_new_color, delete_color
 
 router = APIRouter(
     tags=["Pages"]
@@ -62,9 +64,6 @@ def get_color_list(request: Request, colors=Depends(get_all_colors)):
     return templates.TemplateResponse("color_list.html", {"request": request, "colors": colors})
 
 
-########################
-
-
 @router.get('/category/add')
 def add_category(request: Request):
     return templates.TemplateResponse("category_add.html", {'request': request})
@@ -106,19 +105,55 @@ def add_color(request: Request, new_color=Depends(add_new_color)):
 
 
 ####################
-@router.get('/update/{cat_slug}')
-def update_category_page(request: Request, update_cat=Depends(get_category)):
-    return templates.TemplateResponse('updatecat.html', {'request': request, 'update_cat': update_cat})
+
+@router.get('/category/{cat_slug}')
+def get_category_detail(request: Request, cat=Depends(get_category)):
+    return templates.TemplateResponse('category_detail.html', {'request': request, 'cat': cat})
 
 
-@router.post('/update/{cat_slug}')
-def update_category_page(request: Request, update_cat=Depends(update_category)):
-    return templates.TemplateResponse('updatecat.html', {'request': request, 'cat': update_cat})
+@router.post('/category/{cat_slug}/update')
+def category_update(request: Request, update_cat=Depends(update_category)):
+    return templates.TemplateResponse('category_detail.html', {'request': request, 'cat': update_cat})
 
 
-@router.get('/delete/{cat_slug}')
-def delete_category_page(request: Request, del_cat=Depends(delete_category)):
-    return templates.TemplateResponse('delcat.html', {'request': request})
+@router.get('/category/{cat_slug}/delete', dependencies=[Depends(delete_category)])
+def category_delete(request: Request):
+    return RedirectResponse('/categories')
+
+
+@router.get('/theme/{theme_slug}')
+def get_theme_detail(request: Request, theme=Depends(get_theme)):
+    return templates.TemplateResponse('theme_detail.html', {'request': request, 'theme': theme})
+
+
+@router.post('/theme/{theme_slug}/update')
+def theme_update(request: Request, ud_theme=Depends(update_theme)):
+    return templates.TemplateResponse('theme_detail.html', {'request': request, 'theme': ud_theme})
+
+
+@router.get('/theme/{theme_slug}/delete', dependencies=[Depends(delete_theme)])
+def theme_delete(request: Request):
+    return RedirectResponse('/themes')
+
+
+@router.get('/task/{task_slug}')
+def get_task_detail(request: Request, task=Depends(get_task)):
+    return templates.TemplateResponse('task_detail.html', {'request': request, 'task': task})
+
+
+@router.post('/task/{task_slug}/update')
+def task_update(request: Request, ud_task=Depends(update_task)):
+    return templates.TemplateResponse('task_detail.html', {'request': request, 'task': ud_task})
+
+
+@router.get('/task/{task_slug}/delete', dependencies=[Depends(delete_task)])
+def task_delete(request: Request):
+    return RedirectResponse('/tasks')
+
+
+@router.get('/color/{color_id}/delete', dependencies=[Depends(delete_color)])
+def task_delete(request: Request):
+    return RedirectResponse('/colors')
 
 # this is correct
 # @router.post('/add')

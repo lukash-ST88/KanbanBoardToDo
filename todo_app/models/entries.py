@@ -8,6 +8,7 @@ from sqlalchemy import ForeignKey, String, func, types
 
 
 
+
 class Color(Base):
     __tablename__ = 'Color'
 

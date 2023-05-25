@@ -92,8 +92,6 @@ class ThemeBase(BaseModel):
     class Config:
         orm_mode = True
 
-
-class ThemeCreate(ThemeBase):
     @classmethod
     def as_form(
             cls,
@@ -111,13 +109,16 @@ class ThemeCreate(ThemeBase):
         )
 
 
+class ThemeCreate(ThemeBase):
+    pass
+
+
 class ThemeRead(ThemeBase):
     pass
 
 
 class ThemeUpdate(ThemeBase):
-    pass
-
+   pass
 
 """"""
 
@@ -127,6 +128,7 @@ class TaskBase(BaseModel):
     description: str | None
     completed: bool = False
     theme_id: int
+    slug: str
 
     class Config:
         orm_mode = True
@@ -139,7 +141,6 @@ class TaskRead(TaskBase):
 
 
 class TaskCreate(TaskBase):
-    slug: str
     expiration_date: datetime = Field(...)
     user_id: int  # remove in the future
 
@@ -167,10 +168,30 @@ class TaskCreate(TaskBase):
 
 
 class TaskUpdate(TaskBase):
-    slug: str
     update_date: datetime = datetime.now()
 
+    @classmethod
+    def as_form(
+            cls,
+            title: str = Form(...),
+            description: str | None = Form(...),
+            completed: bool = Form(default=False),
+            theme_id: int = Form(...),
+            slug: str = Form(...),
+            update_date: datetime = Form(default=datetime.now()),
+    ):
+        return cls(
+            title=title,
+
+            slug=slug,
+            description=description,
+            completed=completed,
+            theme_id=theme_id,
+            update_date=update_date
+        )
+
 # TODO: refactor schemas @as_form
+# TODO: task redis celery
 
 ###
 # import inspect

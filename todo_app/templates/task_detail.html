@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" enctype="application/x-www-form-urlencoded" action="/task/{{task.slug}}/update">
+    <input type="text" name="title" value="{{task.title}}"/>
+    <input type="text" name="slug" value="{{task.slug}}"/>
+    <input type="text" name="description" value="{{task.description}}"/>
+    <input type="checkbox" name="completed" value="{{task.completed}}"/>
+    <input type="datetime-local" name="update_date" value="{{task.update_date}}" />
+    <input type="number" name="theme_id" value="{{task.theme_id}}"/>
+    <p>{{task.creation_date}}</p>
+    <p> {{task.update_date}}</p>
+    <p>{{task.expiration_date}}</p>
+    <input type="submit">
+</form>
+
+<form action="/task/{{task.slug}}/delete" method="get">
+    <button>delete</button>
+</form>
+
+{{ task }}
+{% endblock %}

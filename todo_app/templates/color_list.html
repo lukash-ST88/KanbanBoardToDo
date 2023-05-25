@@ -2,5 +2,8 @@
 {% block content %}
 {% for color in colors %}
 <p> {{color.code}} </p>
+<form method="get" action="/color/{{color.id}}/delete">
+    <button>delete</button>
+</form>
 {% endfor %}
 {% endblock %}
