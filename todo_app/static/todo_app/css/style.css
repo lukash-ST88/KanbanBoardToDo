@@ -1,0 +1,17 @@
+ul {
+  list-style-type: none;
+}
+
+.verticalLine-right {
+  border-right: thick solid black;
+}
+
+.verticalLine-left {
+  border-left: thick solid black;
+}
+
+.colo {
+  background-color: #ff0000;
+  color: blueviolet;
+}
+

@@ -1,14 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for task in todo_zone_tasks %}
-<p> {{task}} </p>
-{% endfor %}
-<hr>
-{% for task in middle_zone_tasks %}
-<p> {{task}} </p>
-{% endfor %}
-<hr>
-{% for task in done_zone_tasks %}
-<p> {{task}} </p>
-{% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="text-start">
+            <a href="#">New Category</a>
+            <a href="#">New Theme</a>
+            <a href="#">New Color</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl text-center">
+    <div class="row">
+        <div class="col verticalLine-right">
+            {% for task in todo_zone_tasks %}
+            {% include 'include/task_card.html'%}
+            
+           
+            {% endfor %}
+        </div>
+        <div class="col">
+            {% for task in middle_zone_tasks %}
+            {% include 'include/task_card.html'%}
+            
+            {% endfor %}
+        </div>
+        <div class="col verticalLine-left">
+            {% for task in done_zone_tasks %}
+            {% include 'include/task_card.html'%}
+           
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

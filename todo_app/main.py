@@ -8,7 +8,7 @@ from .routers.category import router as router_category
 from .routers.theme import router as router_theme
 from .routers.task import router as router_task
 from .pages.views import router as router_page
-
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title='ToDoApp'
@@ -33,6 +33,8 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
                    "Authorization"],
 )
+
+app.mount("/static", StaticFiles(directory="todo_app/static"), name="static")
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),

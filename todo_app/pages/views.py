@@ -15,6 +15,10 @@ router = APIRouter(
 
 templates = Jinja2Templates(directory="todo_app/templates")
 
+@router.get('/base')
+def get_base(request: Request):
+    return templates.TemplateResponse('base.html', {'request': request})
+
 
 @router.get('/tasks')
 def get_task_list(request: Request, tasks=Depends(get_all_tasks)):

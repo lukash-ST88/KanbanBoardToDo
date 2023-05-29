@@ -1,0 +1,48 @@
+<div class="card border-5 text-center my-4 mx-4" style="background-color: red;">
+    <div class="card-header" style="background-color: blue; color: antiquewhite;">
+        <div class="row">
+            <div class="col">
+                Category
+            </div>
+            <div class="col">
+                Theme
+            </div>
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-10">
+                    {{task.title}}
+                </div>
+                <input class='col-2' type="checkbox" value="{{task.completed}}"> 
+            </div>
+        </li>
+        <li class="list-group-item text-start">
+            <ul>
+                <li> Creation date {{task.crietion_date}} </li>
+                {% if task.update_date != None %}
+                <li> upadate date {{task.update_date}} </li>
+                {% endif %}
+                <li> expiration date {{task.expiration_date}}</li>
+            </ul>
+        </li>
+        <li class="list-group-item">Left days</li>
+        <li>
+            <div class="accordion" id="accordionText">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{task.id}}" aria-expanded="false" aria-controls="collapse{{task.id}}">
+                            Description
+                        </button>
+                    </h2>
+                    <div id="collapse{{task.id}}" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                          {{task.description}}
+                        </div>
+                    </div>
+                </div>
+        </li>
+    </ul>
+</div>
