@@ -71,3 +71,16 @@ app.include_router(router_page)
 @app.get("/authenticated-route")
 async def authenticated_route(user: User = Depends(current_active_user)):
     return {"message": f"Hello {user.email}!"}
+
+#TODO: align categories
+#TODO: add modals and categories update
+#TODO: categories add
+#TODO: task add
+#TODO: task 
+#TODO: trash task by icon
+#TODO: filter and search of tasks
+#TODO: Celery Redis Task for sending messages about completed tasks
+#TODO: COLOR
+#TODO: USER
+#TODO: icons
+

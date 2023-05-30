@@ -3,11 +3,11 @@ ul {
 }
 
 .verticalLine-right {
-  border-right: thick solid black;
+  border-right: thick solid #e3f2fd;;
 }
 
 .verticalLine-left {
-  border-left: thick solid black;
+  border-left: thick solid #e3f2fd;;
 }
 
 .colo {

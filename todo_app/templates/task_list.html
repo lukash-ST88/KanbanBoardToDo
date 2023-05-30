@@ -1,31 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="text-start">
-            <a href="#">New Category</a>
-            <a href="#">New Theme</a>
-            <a href="#">New Color</a>
-        </div>
-    </div>
-</div>
 
-<div class="container-xxl text-center">
+<div class="container-xxl text-center my-5">
     <div class="row">
-        <div class="col verticalLine-right">
+        <div class="col-sm-12 col-md-4 verticalLine-right">
             {% for task in todo_zone_tasks %}
             {% include 'include/task_card.html'%}
             
            
             {% endfor %}
         </div>
-        <div class="col">
+        <div class="col-sm-12 col-md-4">
             {% for task in middle_zone_tasks %}
             {% include 'include/task_card.html'%}
             
             {% endfor %}
         </div>
-        <div class="col verticalLine-left">
+        <div class="col-sm-12 col-md-4 verticalLine-left">
             {% for task in done_zone_tasks %}
             {% include 'include/task_card.html'%}
            
