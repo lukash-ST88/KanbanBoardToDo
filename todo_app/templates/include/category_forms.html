@@ -1,0 +1,54 @@
+<div class="container-xxl py-5">
+    <div class="row">
+        {% if flag == 'add'%}
+        <div class="col">
+            <form method="post" class="py-5" enctype="application/x-www-form-urlencoded" action="/categories/add">
+                <fieldset>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="name" placeholder="name" />
+                        <input type="text" class="form-control" name="slug" placeholder="slug" />
+                        <input type="number" class="form-control" name="color_id" placeholder="color_id" />
+                        <input type="number" class="form-control" name="user_id" placeholder="user_id" />
+                        <input type="submit" class="form-control" class="btn btn-primary">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col py-5">
+            <form method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset disabled>
+                    <input type="text" class="form-control" name="name" placeholder="category name" />
+                    <input type="text" class="form-control" name="slug" placeholder="category slug" />
+                    <input type="number" class="form-control" name="color_id" placeholder="color_id" />
+                    <input type="submit">
+                </fieldset>
+            </form>
+        </div>
+        {% else %}
+        <div class="col">
+            <form method="post" class="py-5" enctype="application/x-www-form-urlencoded" action="/categories/add">
+                <fieldset disabled>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="name" placeholder="name" />
+                        <input type="text" class="form-control" name="slug" placeholder="slug" />
+                        <input type="number" class="form-control" name="color_id" placeholder="color_id" />
+                        <input type="number" class="form-control" name="user_id" placeholder="user_id" />
+                        <input type="submit" class="form-control" class="btn btn-primary">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col py-5">
+            <form method="post" enctype="application/x-www-form-urlencoded"
+                action="/categories/{{update_cat.slug}}/update">
+                <fieldset>
+                    <input type="text" class="form-control" name="name" value="{{update_cat.name}}"/>
+                    <input type="text" class="form-control" name="slug" value="{{update_cat.slug}}"/>
+                    <input type="number" class="form-control" name="color_id" value="{{update_cat.color_id}}"/>
+                    <input type="submit">
+                </fieldset>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>

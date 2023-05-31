@@ -1,29 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container-xxl text-center py-5">
+{% include 'include/category_forms.html' %}
+
+<div class="container-xxl align-items-center text-center py-5 ">
     {% for cat in cats %}
-    <div class="d-lg-inline-flex  justify-content-evenly p-3">
+    <div class="d-lg-inline-flex  p-3">
         <div class="accordion" id="accordionCategory">
-            <div class="accordion-item ">
+            <div class="accordion-item border-5 border-primary ">
                 <h2 class="accordion-header">
                     <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse{{cat.id}}" aria-expanded="false" aria-controls="collapse{{cat.id}}">
                         {{cat.name}}
                     </button>
                 </h2>
-                <div id="collapse{{cat.id}}" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                    <div class="accordion-body text-center">
-                        <a class="btn btn-outline-warning" href="" role="button">Edit</a>
-                        <a class="btn btn-outline-danger" href="/category/{{cat.slug}}/delete" role="button">Delete</a>
+                <div id="collapse{{cat.id}}" class="accordion-collapse collapse " data-bs-parent="#accordion">
+                    <div class="accordion-body ">
+                        <a class="btn btn-outline-warning" href="/categories/{{cat.slug}}" role="button">Edit</a>
+                        <a class="btn btn-outline-danger" href="/categories/{{cat.slug}}/delete" role="button">Delete</a>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     {% endfor %}
-    <div class="modal-dialog modal-dialog-centered">
-        
-      </div>
+
 </div>
+
 {% endblock %}

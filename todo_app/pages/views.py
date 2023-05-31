@@ -55,7 +55,7 @@ def get_task_list_by_theme(request: Request, tasks=Depends(get_tasks_by_theme)):
 
 @router.get('/categories')
 def get_category_list(request: Request, cats=Depends(get_all_categories)):
-    return templates.TemplateResponse("category_list.html", {"request": request, "cats": cats})
+    return templates.TemplateResponse("category_list.html", {"request": request, "cats": cats, 'flag': 'add'})
 
 
 @router.get('/themes')
@@ -68,15 +68,18 @@ def get_color_list(request: Request, colors=Depends(get_all_colors)):
     return templates.TemplateResponse("color_list.html", {"request": request, "colors": colors})
 
 
-@router.get('/category/add')
-def add_category(request: Request):
-    return templates.TemplateResponse("category_add.html", {'request': request})
+# @router.get('/category/add')
+# def add_category(request: Request):
+#     return templates.TemplateResponse("category_add.html", {'request': request})
 
 
-@router.post('/category/add')
-def add_category(request: Request, new_cat=Depends(add_new_category)):
-    return templates.TemplateResponse("category_add.html", {'request': request, 'cat': new_cat})
+# @router.post('/category/add')
+# def add_category(request: Request, new_cat=Depends(add_new_category)):
+#     return templates.TemplateResponse("category_add.html", {'request': request, 'cat': new_cat})
 
+@router.post('/categories/add', dependencies=[Depends(add_new_category)])
+def add_categories(request: Request, cats=Depends(get_all_categories)):
+    return templates.TemplateResponse("category_list.html", {"request": request, "cats": cats, 'flag': 'add'})
 
 @router.get('/theme/add')
 def add_theme(request: Request):
@@ -110,17 +113,18 @@ def add_color(request: Request, new_color=Depends(add_new_color)):
 
 ####################
 
-@router.get('/category/{cat_slug}')
-def get_category_detail(request: Request, cat=Depends(get_category)):
-    return templates.TemplateResponse('category_detail.html', {'request': request, 'cat': cat})
+@router.get('/categories/{cat_slug}')
+def get_category_detail(request: Request, cats=Depends(get_all_categories), update_cat=Depends(get_category)):
+    return templates.TemplateResponse('category_list.html', {'request': request, 'cats': cats, 'update_cat': update_cat, 'flag': 'update'})
 
 
-@router.post('/category/{cat_slug}/update')
-def category_update(request: Request, update_cat=Depends(update_category)):
-    return templates.TemplateResponse('category_detail.html', {'request': request, 'cat': update_cat})
+@router.post('/categories/{cat_slug}/update', dependencies=[Depends(update_category)])
+def category_update(request: Request, cats=Depends(get_all_categories)):
+    return templates.TemplateResponse('category_list.html', {'request': request, 'cats': cats, 'flag': 'add'})
 
 
-@router.get('/category/{cat_slug}/delete', dependencies=[Depends(delete_category)])
+
+@router.get('/categories/{cat_slug}/delete', dependencies=[Depends(delete_category)])
 def category_delete(request: Request):
     return RedirectResponse('/categories')
 
