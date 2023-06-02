@@ -1,28 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div class="container-xxl text-center my-5">
+<div class="container-xxl text-center horizontalLine-bottom" style="margin-top: 80px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 py-3">
+            <a class="btn btn-outline-success" href="/tasks/add" role="button">Add</a>
+        </div>
+        <div class="col-sm-12 col-md-4 py-3">
+            <a class="btn btn-outline-warning" href="#" role="button">Upadte</a>
+        </div>
+        <div class="col-sm-12 col-md-4 py-3">
+            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="submit" form="sortByCat" class="btn btn-outline-danger">Sort By</button>
+                    <form name="sortByCat" id="sortByCat" onsubmit="SetDataCat()">
+                        <select id='selectedCat' class="form-select" aria-label="Default select example">
+                            <option selected>Category</option>
+                            {% for cat in cats %}
+                            <option value="{{ cat.slug }}">{{cat}}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="submit" form="sortByTheme" class="btn btn-outline-danger">Sort By</button>
+                    <form id="sortByTheme" name="sortByTheme" onsubmit="SetDataTheme()">
+                        <select id='selectedTheme' class="form-select" aria-label="Default select example">
+                            <option selected> Theme </option>
+                            {% for theme in themes %}
+                            <option value="{{ theme.slug }}">{{theme}}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-xxl text-center ">
     <div class="row">
         <div class="col-sm-12 col-md-4 verticalLine-right">
+            <p class="horizontalLine-bottom my-3">ToDo Tasks</p>
             {% for task in todo_zone_tasks %}
             {% include 'include/task_card.html'%}
-            
-           
             {% endfor %}
         </div>
         <div class="col-sm-12 col-md-4">
+            <p class="horizontalLine-bottom my-3">Tasks of less 30% </p>
             {% for task in middle_zone_tasks %}
             {% include 'include/task_card.html'%}
-            
+
             {% endfor %}
         </div>
         <div class="col-sm-12 col-md-4 verticalLine-left">
+            <p class="horizontalLine-bottom my-3">Expirated Tasks</p>
             {% for task in done_zone_tasks %}
             {% include 'include/task_card.html'%}
-           
             {% endfor %}
         </div>
     </div>
 </div>
+<script>
+    function SetDataCat() {
+        var select = document.getElementById('selectedCat');
+        var catSlug = select.options[select.selectedIndex].value;
 
+        document.sortByCat.action = "/tasks/category/" + catSlug;
+        sortByCat.submit();
+    }
+
+    function SetDataTheme() {
+        var select = document.getElementById('selectedTheme');
+        var themeSlug = select.options[select.selectedIndex].value;
+
+        document.sortByTheme.action = "/tasks/theme/" + themeSlug;
+        sortByTheme.submit();
+    }
+</script>
 {% endblock %}

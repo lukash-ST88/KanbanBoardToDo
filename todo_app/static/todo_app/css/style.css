@@ -3,15 +3,20 @@ ul {
 }
 
 .verticalLine-right {
-  border-right: thick solid #e3f2fd;;
+  border-right: thick solid #e3f2fd;
+  ;
+}
+
+.horizontalLine-top {
+  border-top: thick solid #e3f2fd;
+}
+
+.horizontalLine-bottom {
+  border-bottom: thick solid #e3f2fd;
 }
 
 .verticalLine-left {
-  border-left: thick solid #e3f2fd;;
-}
-
-.colo {
-  background-color: #ff0000;
-  color: blueviolet;
+  border-left: thick solid #e3f2fd;
+  ;
 }
 

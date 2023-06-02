@@ -72,14 +72,22 @@ app.include_router(router_page)
 async def authenticated_route(user: User = Depends(current_active_user)):
     return {"message": f"Hello {user.email}!"}
 
-#TODO: align categories
-#TODO: task add
-#TODO: selection choice
-#TODO: task 
+
+
 #TODO: trash task by icon
-#TODO: filter and search of tasks
-#TODO: Celery Redis Task for sending messages about completed tasks
-#TODO: COLOR
-#TODO: USER
 #TODO: icons
+#TODO: search of tasks
+#TODO: tasks update bool
+#TODO: <a> - correct color
+
+#TODO: highlight selected item 
+#TODO: slugify
+#TODO: Celery Redis Task for sending messages about completed tasks
+#TODO: USER
+#TODO: tests
+
+#TODO: boostrap - forms - form control - Color
+#TODO: sass for <select> color
+
+
 

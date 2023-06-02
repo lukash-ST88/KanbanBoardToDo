@@ -1,9 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for color in colors %}
-<p> {{color.code}} </p>
-<form method="get" action="/color/{{color.id}}/delete">
-    <button>delete</button>
-</form>
-{% endfor %}
+
+<div class="container-xxl" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <div class="btn-group mx-2" role="group" aria-label="AddColor">
+                <button type="submit" form="addColor" class="btn btn-success">Add</button>
+                <form method="post" class="d-flex align-items-around flex-column"
+                    enctype="application/x-www-form-urlencoded" action="/colors/add" id="addColor">
+                    <input type="text" class="form-control" name="bs_name" placeholder="bs_name" />
+                    <input type="text" class="form-control" name="code" placeholder="code" />
+                </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex flex-wrap">
+            {% for color in colors %}
+            <div class="card border-5 m-5">
+                <div class="card-body text-bg-{{color.bs_name}} align-center ">
+                    <form method="get" action="/colors/{{color.id}}/delete">
+                        {{color.bs_name}}
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

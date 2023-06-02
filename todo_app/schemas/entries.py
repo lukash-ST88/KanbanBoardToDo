@@ -10,13 +10,14 @@ from fastapi.param_functions import Form
 
 class ColorBase(BaseModel):
     code: color
+    bs_name: str
 
     class Config:
         orm_mode = True
 
     @classmethod
-    def as_form(cls, code: color = Form(...)):
-        return cls(code=code)
+    def as_form(cls, code: color = Form(), bs_name: str = Form()):
+        return cls(code=code, bs_name=bs_name)
 
     @validator('code')
     def valid_color_code(cls, code: color):

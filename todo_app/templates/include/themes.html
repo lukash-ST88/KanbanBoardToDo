@@ -1,0 +1,24 @@
+<div class="container-xxl align-items-center text-center" style="margin-bottom: 100px;">
+    {% for theme in themes %}
+    <div class="d-lg-inline-flex  p-3">
+        <div class="accordion" id="accordionTheme" style="border-radius: 0px">
+            <div class="accordion-item border-5 border-{{theme.color.bs_name}}">
+                <h2 class="accordion-header">
+                    <button class="accordion-button text-bg-{{theme.cat.color.bs_name}}" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{theme.id}}" aria-expanded="false"
+                        aria-controls="collapse{{theme.id}}" style="border-radius: 0px">
+                        {{theme.name}}
+                    </button>
+                </h2>
+                <div id="collapse{{theme.id}}" class="accordion-collapse collapse " data-bs-parent="#accordion">
+                    <div class="accordion-body ">
+                        <a class="btn btn-outline-warning" href="/themes/{{theme.slug}}" role="button">Edit</a>
+                        <a class="btn btn-outline-danger" href="/themes/{{theme.slug}}/delete"
+                            role="button">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -11,7 +11,8 @@ class Color(Base):
     __tablename__ = 'Color'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    code: Mapped[str] = mapped_column()
+    code: Mapped[str] = mapped_column(nullable=True)
+    bs_name: Mapped[str] = mapped_column(nullable=True)
 
     categories = relationship('Category', back_populates='color')
     themes = relationship('Theme', back_populates='color')

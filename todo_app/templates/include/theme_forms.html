@@ -2,12 +2,18 @@
     <div class="row">
         {% if flag == 'add'%}
         <div class="col-5 p-5 d-flex justify-content-center">
-            <div class="btn-group mx-2" role="group" aria-label="AddCategory">
-                <button type="submit" form="addCategory" class="btn btn-success">Add</button>
+            <div class="btn-group mx-2" role="group" aria-label="AddTheme">
+                <button type="submit" form="addTheme" class="btn btn-success">Add</button>
                 <form method="post" class="d-flex align-items-around flex-column"
-                    enctype="application/x-www-form-urlencoded" action="/categories/add" id="addCategory">
+                    enctype="application/x-www-form-urlencoded" action="/themes/add" id="addTheme">
                     <input type="text" class="form-control" name="name" placeholder="name" />
                     <input type="text" class="form-control" name="slug" placeholder="slug" />
+                    <select class="form-select" name="cat_id">
+                        <option selected> Choose Category </option>
+                        {% for cat in cats %}
+                        <option value="{{cat.id}}">{{cat}}</option>
+                        {% endfor %}
+                    </select>
                     <select class="form-select" name="color_id">
                         <option selected> Choose Color </option>
                         {% for color in colors %}
@@ -19,48 +25,54 @@
             </div>
         </div>
         <div class="col-2 text-center">
-            <p class="m-5">Categories</p>
+            <p class="m-5">Themes</p>
         </div>
         <div class="col py-5 d-flex justify-content-center">
-            <div class="btn-group mx-2" role="group" aria-label="AddCategory">
+            <div class="btn-group mx-2" role="group" aria-label="AddTheme">
                 <button type="submit" form="sortByCat" class="btn btn-warning disabled ">Update</button>
                 <form method="post" class="align-items-around flex-column" enctype="application/x-www-form-urlencoded">
                     <fieldset disabled>
                         <input type="text" class="form-control " name="name" />
                         <input type="text" class="form-control" name="slug" />
+                        <input type="number" class="form-control" name="cat_id" />
                         <input type="number" class="form-control" name="color_id" />
-
                     </fieldset>
                 </form>
             </div>
         </div>
         {% else %}
         <div class="col-5 p-5 d-flex justify-content-center">
-            <div class="btn-group mx-2" role="group" aria-label="AddCategory">
+            <div class="btn-group mx-2" role="group" aria-label="AddTheme">
                 <button type="submit" form="sortByCat" class="btn btn-success disabled">Add</button>
                 <form method="post" class="d-flex align-items-around flex-column"
-                    enctype="application/x-www-form-urlencoded" action="/categories/add">
+                    enctype="application/x-www-form-urlencoded" action="/themes/add">
                     <fieldset disabled>
                         <input type="text" class="form-control" name="name" />
                         <input type="text" class="form-control" name="slug"/>
                         <input type="number" class="form-control" name="color_id" />
-                        <input type="hidden" value='2' class="form-control" name="user_id" />
+                        <input type="number" class="form-control" name="cat_id" />
                     </fieldset>
                 </form>
             </div>
         </div>
         <div class="col-2 text-center">
-            <p class="m-5">Categories</p>
+            <p class="m-5">Themes</p>
         </div>
         <div class="col py-5 d-flex justify-content-center">
-            <div class="btn-group mx-2" role="group" aria-label="AddCategory">
-                <button type="submit" form="updateCategory" class="btn btn-warning">Update</button>
-                <form id="updateCategory" method="post" enctype="application/x-www-form-urlencoded"
-                    action="/categories/{{update_cat.slug}}/update" class="align-items-around flex-column">
-                    <input type="text" class="form-control" name="name" value="{{update_cat.name}}" />
-                    <input type="text" class="form-control" name="slug" value="{{update_cat.slug}}" />
+            <div class="btn-group mx-2" role="group" aria-label="AddTheme">
+                <button type="submit" form="updateTheme" class="btn btn-warning">Update</button>
+                <form id="updateTheme" method="post" enctype="application/x-www-form-urlencoded"
+                    action="/themes/{{update_theme.slug}}/update" class="align-items-around flex-column">
+                    <input type="text" class="form-control" name="name" value="{{update_theme.name}}" />
+                    <input type="text" class="form-control" name="slug" value="{{update_theme.slug}}" />
+                    <select class="form-select" name="cat_id">
+                        <option selected value="{{update_theme.cat.id}}"> {{update_theme.cat}} </option>
+                        {% for cat in cats %}
+                        <option value="{{cat.id}}">{{cat}}</option>
+                        {% endfor %}
+                    </select>
                     <select class="form-select" name="color_id">
-                        <option selected value="{{update_cat.color.id}}"> {{update_cat.color.bs_name}} </option>
+                        <option selected value="{{update_theme.color.id}}"> {{update_theme.color.bs_name}} </option>
                         {% for color in colors %}
                         <option value="{{color.id}}">{{color.bs_name}}</option>
                         {% endfor %}

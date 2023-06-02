@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for theme in themes %}
-<p> {{theme.name}} </p>
-{% endfor %}
+
+{% include 'include/theme_forms.html' %}
+<hr>
+{% include 'include/themes.html' %}
+
+
 {% endblock %}

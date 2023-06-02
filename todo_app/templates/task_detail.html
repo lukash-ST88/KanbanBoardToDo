@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<form method="post" enctype="application/x-www-form-urlencoded" action="/task/{{task.slug}}/update">
-    <input type="text" name="title" value="{{task.title}}"/>
-    <input type="text" name="slug" value="{{task.slug}}"/>
-    <input type="text" name="description" value="{{task.description}}"/>
-    <input type="checkbox" name="completed" value="{{task.completed}}"/>
-    <input type="datetime-local" name="update_date" value="{{task.update_date}}" />
-    <input type="number" name="theme_id" value="{{task.theme_id}}"/>
-    <p>{{task.creation_date}}</p>
-    <p> {{task.update_date}}</p>
-    <p>{{task.expiration_date}}</p>
-    <input type="submit">
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <fieldset style="padding: 5% 25%;" class="vstack gap-3">
+        <legend class="text-center"> Task </legend>
+        <input type="text" class='form-control' name="title" value="{{task.title}}" />
+        <input type="text" class='form-control' name="slug" value="{{task.slug}}"/>
+        <li class="list-group-item text-center">
+            <ul>
+                <li> Creation date: {{task.get_creation_date()}} </li>
+                {% if task.update_date != None %}
+                <li> Upadate date: {{task.get_update_date()}} </li>
+                {% endif %}
+                <li> Expiration date: {{task.get_expiration_date()}}</li>
+            </ul>
+        </li>
+        <textarea class='form-control' rows="10" name="description">{{task.description}}</textarea>
+        <select class="form-select" name="theme_id">
+            <option selected value="{{task.theme.id}}"> {{task.theme}} </option>
+            {% for theme in themes %}
+            <option value="{{theme.id}}">{{theme.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="number" class='form-control' name="user_id" value="{{task.user_id}}" />
+        <button type="submit" class="btn btn-success">Save</button>
+    </fieldset>
 </form>
 
-<form action="/task/{{task.slug}}/delete" method="get">
-    <button>delete</button>
-</form>
-
-{{ task }}
 {% endblock %}

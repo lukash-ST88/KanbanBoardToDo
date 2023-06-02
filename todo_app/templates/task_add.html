@@ -2,15 +2,21 @@
 {% block content %}
 
 <form method="post" enctype="application/x-www-form-urlencoded">
-    <input type="text" name="title" placeholder="title"/>
-    <input type="text" name="slug" placeholder="slug"/>
-    <input type="text" name="description" placeholder="description"/>
-    <input type="checkbox" name="completed" placeholder="completed"/>
-    <input type="datetime-local" name="expiration_date" placeholder="expiration_date"/>
-    <input type="number" name="theme_id" placeholder="theme_id"/>
-    <input type="number" name="user_id" placeholder="user_id"/>
-    <input type="submit">
+    <fieldset style="padding: 5% 25%;" class="vstack gap-3">
+        <legend class="text-center">Add new Task</legend>
+        <input type="text" class='form-control' name="title" placeholder="title" />
+        <input type="text" class='form-control' name="slug" placeholder="slug"/>
+        <input type="datetime-local" class='form-control' name="expiration_date" placeholder="expiration_date" />
+        <textarea class='form-control' rows="10" name="description"></textarea>
+        <select class="form-select" name="theme_id">
+            {% for theme in themes %}
+            <option selected> Choose the Theme </option>
+            <option value="{{theme.id}}">{{theme.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="number" class='form-control' name="user_id" placeholder="user_id" />
+        <button type="submit" class="btn btn-primary">Save</button>
+    </fieldset>
 </form>
 
-{{ task }}
 {% endblock %}

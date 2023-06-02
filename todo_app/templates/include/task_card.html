@@ -1,14 +1,16 @@
-<div class="card border-5 text-center my-4 mx-4" style="background-color: red;">
-    <div class="card-header" style="background-color: blue; color: antiquewhite;">
-        <div class="row">
-            <div class="col">
-                {{task.theme.cat}}
-            </div>
-            <div class="col">
-                {{task.theme}}
+<div class="card border-5 bg-{{task.theme.color.bs_name}} text-center my-4 mx-4">
+    <a href="/tasks/{{task.slug}}" style="text-decoration: none;">
+        <div class="card-header text-bg-{{task.theme.cat.color.bs_name}}">
+            <div class="row">
+                <div class="col">
+                    {{task.theme.cat}}
+                </div>
+                <div class="col">
+                    {{task.theme}}
+                </div>
             </div>
         </div>
-    </div>
+    </a>
     <ul class="list-group">
         <li class="list-group-item">
             <div class="row">
@@ -32,8 +34,8 @@
             <div class="accordion" id="accordionText">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{task.id}}" aria-expanded="false"
+                        <button class="accordion-button text-bg-{{task.theme.cat.color.bs_name}}" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapse{{task.id}}" aria-expanded="false"
                             aria-controls="collapse{{task.id}}">
                             Description
                         </button>
