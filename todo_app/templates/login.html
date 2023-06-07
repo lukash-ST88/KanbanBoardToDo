@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-<form id="loginForm" action="/auth/redis/login" method="post" style="margin-top: 100px;">
-    <input type="email" name="username" placeholder="email" />
-    <input type="text" name="password" placeholder="password" />
-    <button type="submit">submit</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <form id="loginForm" action="/auth/redis/login" method="post" style="margin-top: 50%; margin-right: 100px">
+                <label>Login</label>
+                <input class="form-control my-3" type="email" name="username" placeholder="email"/>
+                <input class="form-control my-3" type="text" name="password" placeholder="password"/>
+                <div class="btn-group form-control" role="group" aria-label="Basic example">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <a href="/register" class="btn btn-success">Register</a>
+                </div>
+            </form>
+        </div>
+        <div class="col text-center">
+            <form style="margin-top: 50%; margin-left: 100px">
+                <label>Register</label>
+                <div class="btn-group">
+                    <input class="form-control my-3" type="email" name="username" disabled/>
+                    <input class="form-control my-3" type="text" name="password" disabled/>
+                </div>
+                <div class="btn-group">
+                    <input class="form-control my-3" type="email" name="username" disabled/>
+                    <input class="form-control my-3" type="text" name="password"  disabled/>
+                </div>
+                <button class="btn btn-success form-control my-3" type="submit" disabled>submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     const loginForm = document.getElementById('loginForm');
     loginForm.addEventListener('submit', submitForm)
@@ -46,6 +71,10 @@
     }
    
     
+
+
+
+
 </script>
 
 {% endblock %}

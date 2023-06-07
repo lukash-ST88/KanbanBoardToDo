@@ -86,7 +86,7 @@ async def authenticated_route(user: User = Depends(current_active_user)):
 
 #TODO: highlight selected item 
 #TODO: slugify
-#TODO: celery - corutine to iterable
+#TODO: celery - corutine to iterable (refactor auth -> models -> color -> lazy=selectin)
 #TODO: tests
 
 #TODO: boostrap - forms - form control - Color

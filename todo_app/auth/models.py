@@ -19,7 +19,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
 
     categories = relationship('Category', back_populates='user', cascade="all, delete", passive_deletes=True)
     tasks = relationship('Task', back_populates='user', cascade="all, delete", passive_deletes=True, lazy='selectin')
-    color = relationship('Color', back_populates='users')
+    color = relationship('Color', back_populates='users', lazy='selectin')
 
     @property
     def as_dict(self):
