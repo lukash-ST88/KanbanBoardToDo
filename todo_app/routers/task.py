@@ -1,7 +1,7 @@
 import time
 
 from fastapi import APIRouter, Depends
-
+from todo_app.auth.config import current_active_user
 from sqlalchemy import select, insert, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from todo_app.schemas.entries import TaskCreate, TaskUpdate, TaskRead
@@ -16,7 +16,8 @@ router = APIRouter(
 
 
 @router.post('/create')
-async def add_new_task(new_task: TaskCreate = Depends(TaskCreate.as_form), session: AsyncSession = Depends(get_async_session)):
+async def add_new_task(new_task: TaskCreate = Depends(TaskCreate.as_form),
+                       session: AsyncSession = Depends(get_async_session)):
     statement = insert(Task).values(**new_task.dict()).returning(Task)
     result = await session.execute(statement)
     await session.commit()
@@ -24,25 +25,30 @@ async def add_new_task(new_task: TaskCreate = Depends(TaskCreate.as_form), sessi
 
 
 @router.get('/')
-async def get_all_tasks(session: AsyncSession = Depends(get_async_session)):
-    result = await session.scalars(select(Task).order_by(desc(Task.creation_date)))
+async def get_all_tasks(session: AsyncSession = Depends(get_async_session), user=Depends(current_active_user)):
+    result = await session.scalars(select(Task).where(Task.user_id == user.id).order_by(desc(Task.creation_date)))
     return result.all()
 
 
 @router.get('/cat/{cat_slug}')
-async def get_tasks_by_cat(cat_slug: str, session: AsyncSession = Depends(get_async_session)):
+async def get_tasks_by_cat(cat_slug: str, session: AsyncSession = Depends(get_async_session),
+                           user=Depends(current_active_user)):
     result = await session.scalars(
-        select(Task).join(Theme, Task.theme_id == Theme.id).join(Theme.cat).where(Category.slug == cat_slug).order_by(
+        select(Task).join(Theme, Task.theme_id == Theme.id).join(Theme.cat).where(Category.slug == cat_slug).where(
+            Task.user_id == user.id).order_by(
             desc(Task.creation_date)
         )
     )
     return result.all()
 
 
+
 @router.get('/theme/{theme_slug}')
-async def get_tasks_by_theme(theme_slug: str, session: AsyncSession = Depends(get_async_session)):
+async def get_tasks_by_theme(theme_slug: str, session: AsyncSession = Depends(get_async_session),
+                             user=Depends(current_active_user)):
     result = await session.scalars(
-        select(Task).join(Theme, Task.theme_id == Theme.id).where(Theme.slug == theme_slug).order_by(
+        select(Task).join(Theme, Task.theme_id == Theme.id).where(Theme.slug == theme_slug).where(
+            Task.user_id == user.id).order_by(
             desc(Task.creation_date)
         )
     )
@@ -70,7 +76,6 @@ async def delete_task(task_slug: str, session: AsyncSession = Depends(get_async_
     await session.execute(statement)
     await session.commit()
     return {'status': 'success'}
-
 
 # TODO: only for user
 # TODO: slugify

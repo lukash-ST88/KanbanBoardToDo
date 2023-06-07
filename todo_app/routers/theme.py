@@ -1,12 +1,12 @@
 import time
 
 from fastapi import APIRouter, Depends
-
+from todo_app.auth.config import current_active_user
 from sqlalchemy import select, insert, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from todo_app.schemas.entries import ThemeCreate, ThemeUpdate
 from todo_app.db.database import get_async_session
-from todo_app.models.entries import Theme
+from todo_app.models.entries import Theme, Category
 
 router = APIRouter(
     prefix='/API/theme',
@@ -23,8 +23,8 @@ async def add_new_theme(new_theme: ThemeCreate = Depends(ThemeCreate.as_form), s
 
 
 @router.get('/')
-async def get_all_themes(session: AsyncSession = Depends(get_async_session)):
-    result = await session.scalars(select(Theme))
+async def get_all_themes(session: AsyncSession = Depends(get_async_session), user=Depends(current_active_user)):
+    result = await session.scalars(select(Theme).join(Theme.cat).where(Category.user_id == user.id))
     return result.all()
 
 

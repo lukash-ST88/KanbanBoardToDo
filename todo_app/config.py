@@ -13,7 +13,7 @@ DB_PASS = os.environ.get('DB_PASS')
 SECRET_TOKEN = os.environ.get('SECRET_TOKEN')
 
 SMTP_USER = os.environ.get('SMTP_USER')
-SMTP_PASSWORD_USER = os.environ.get('SMTP_PASSWORD_USER')
+SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
 
 
 

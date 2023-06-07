@@ -63,7 +63,7 @@
     function SetDataCat() {
         var select = document.getElementById('selectedCat');
         var catSlug = select.options[select.selectedIndex].value;
-
+        
         document.sortByCat.action = "/tasks/category/" + catSlug;
         sortByCat.submit();
     }

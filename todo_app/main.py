@@ -8,6 +8,7 @@ from .routers.category import router as router_category
 from .routers.theme import router as router_theme
 from .routers.task import router as router_task
 from .pages.views import router as router_page
+from .auth.routers import router as router_user
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
@@ -41,6 +42,7 @@ app.include_router(
     prefix="/auth/redis",
     tags=["auth"],
 )
+
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate),
     prefix="/auth",
@@ -67,6 +69,8 @@ app.include_router(router_category)
 app.include_router(router_theme)
 app.include_router(router_task)
 app.include_router(router_page)
+app.include_router(router_user)
+
 # for test
 @app.get("/authenticated-route")
 async def authenticated_route(user: User = Depends(current_active_user)):
@@ -82,8 +86,7 @@ async def authenticated_route(user: User = Depends(current_active_user)):
 
 #TODO: highlight selected item 
 #TODO: slugify
-#TODO: Celery Redis Task for sending messages about completed tasks
-#TODO: USER
+#TODO: celery - corutine to iterable
 #TODO: tests
 
 #TODO: boostrap - forms - form control - Color

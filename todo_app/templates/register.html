@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<form id="userForm" action="/auth/register" method="post" style="margin-top: 100px;">
+    <input type="email" name="email" placeholder="email" />
+    <input type="text" name="name" placeholder="name" />
+    <input type="text" name="password" placeholder="password" />
+    <input type="number" name="color_id" placeholder="color_id" />
+    <button type="submit">submit</button>
+</form>
+<script>
+    const userForm = document.getElementById('userForm');
+    userForm.addEventListener('submit', submitRegisterForm)
+
+    function submitRegisterForm(event) {
+       
+        event.preventDefault();
+
+        let formData = new FormData(event.target);
+
+        let obj = {};
+        formData.forEach((value, key) => obj[key] = value);
+
+        let request = new Request(event.target.action, {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        fetch(request).then(
+            function (response) {
+                window.location.href = '/';
+            },
+            function (error) {
+                console.error(error);
+            }
+        );
+
+    }
+</script>
+{% endblock %}

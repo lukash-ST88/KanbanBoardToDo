@@ -1,6 +1,22 @@
 <nav class="navbar navbar-expand-md fixed-top" style="background-color: #e3f2fd;">
     <div class="container-fluid">
+        {% if user %}
+        <a class="navbar-brand nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{user.name}}
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/edit">Edit</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <form id='logoutForm' action="/auth/redis/logout" method="post"><button type='submit'
+                        class="dropdown-item">logout</button></form>
+            </li>
+        </ul>
+        {% else %}
         <a class="navbar-brand" href="#">User</a>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,3 +43,25 @@
         </div>
     </div>
 </nav>
+<script>
+    const logoutForm = document.getElementById('logoutForm');
+    logoutForm.addEventListener('submit', submitLogoutForm)
+
+    function submitLogoutForm(event) {
+
+        event.preventDefault();
+
+        let request = new Request(event.target.action, { method: 'POST'});
+
+        fetch(request).then(
+            function (response) {
+                window.location.href = '/'
+            },
+            function (error) {
+                console.error(error);
+            }
+        );
+    }
+
+
+</script>

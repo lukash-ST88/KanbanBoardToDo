@@ -15,7 +15,8 @@ class Color(Base):
     bs_name: Mapped[str] = mapped_column(nullable=True)
 
     categories = relationship('Category', back_populates='color')
-    themes = relationship('Theme', back_populates='color')
+    themes = relationship('Theme', back_populates='color', lazy='selectin')
+    users = relationship('User', back_populates='color', lazy='selectin')
 
     def __str__(self):
         return str(self.code)
@@ -78,7 +79,7 @@ class Task(Base):
         ForeignKey('User.id', ondelete='CASCADE'))
 
     theme = relationship('Theme', back_populates='tasks', lazy='selectin')
-    user: Mapped['User'] = relationship(back_populates='tasks')
+    user = relationship('User', back_populates='tasks')
 
     def __str__(self):
         return self.title

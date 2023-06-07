@@ -1,5 +1,5 @@
 import time
-
+from todo_app.auth.config import current_active_user
 from fastapi import APIRouter, Depends
 from typing import List
 from sqlalchemy import select, insert, update, delete
@@ -24,8 +24,8 @@ async def add_new_category(new_category: CategoryCreate = Depends(CategoryCreate
 
 
 @router.get('/')
-async def get_all_categories(session: AsyncSession = Depends(get_async_session)):
-    result = await session.scalars(select(Category))
+async def get_all_categories(session: AsyncSession = Depends(get_async_session), user=Depends(current_active_user)):
+    result = await session.scalars(select(Category).where(Category.user_id == user.id))
     return result.all()
 
 
