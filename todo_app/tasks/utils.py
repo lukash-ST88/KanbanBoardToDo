@@ -12,7 +12,7 @@ def get_email_template_expirated_tasks(user):
 
     email.set_content(
         '<div>'
-        f'<h1 style="color: red;">Здравствуйте, {user}, а вот и ваш отчет. Зацените 😊</h1>'    
+        f'<h1 style="color: red;">Здравствуйте, {user}, а вот и ваш отчет</h1>'    
         '</div>',
         subtype='html'
     )
