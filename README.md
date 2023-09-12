@@ -23,6 +23,7 @@ This is a ToDo project which's based on kanban lean method. All tasks are divide
 <li>redis-server
 
 <h4>Screen of application</h4>
+
 ![Alt text](Screenshot_of_app.png)
 
 <h4> Steps to activate the project on linux machine</h4>
