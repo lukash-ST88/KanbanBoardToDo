@@ -23,14 +23,13 @@ This is a ToDo project which's based on kanban lean method. All tasks are divide
 <li>redis-server
 
 <h4>Screen of application</h4>
-
 ![Alt text](Screenshot_of_app.png)
 
 <h4> Steps to activate the project on linux machine</h4>
 <p>1. Clone git repository to your machine:</p>
 
 ```
-git clone git@github.com:lukash-ST88/TODO.git
+git clone https://github.com/lukash-ST88/TODO.git
 ```
 
 <p>2. Create and activate vertual enviroment:</p>
