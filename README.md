@@ -1,4 +1,4 @@
-<h1>TODO</h1>
+<h1>Kanban Board ToDo</h1>
 
 <h4> Application description</h4>
 This is a ToDo project which's based on kanban lean method. All tasks are divided into three columns: ToDo tasks(new tasks), Tasks of less 30%(tasks that's time left less then 30%), Expirated tasks (done or expirated tasks). If a task became done or expirated a massege about it sends to an user email.
